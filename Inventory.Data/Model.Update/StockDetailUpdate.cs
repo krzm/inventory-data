@@ -1,9 +1,10 @@
-﻿using Core;
+﻿using ModelHelper;
 
 namespace Inventory.Data;
 
 #nullable enable
-public class StockDetailUpdate : IUpdatable<StockDetail>
+public class StockDetailUpdate 
+    : IUpdatable<StockDetail>
 {
     public string? Description { get; set; }
 

@@ -1,8 +1,9 @@
-﻿using Core;
+﻿using EFCoreHelper;
 
 namespace Inventory.Data;
 
-public interface IInventoryUnitOfWork : IUnitOfWork
+public interface IInventoryUnitOfWork 
+	: IUnitOfWork
 {
 	IGenericRepository<Item> Item { get; }
 	IGenericRepository<ItemCategory> ItemCategory { get; }

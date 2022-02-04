@@ -1,9 +1,9 @@
-﻿using Core;
-using Core.Lib;
+﻿using ModelHelper;
 
 namespace Inventory.Data;
 
-public class ItemCategoryUpdate : ModelAUpdate
+public class ItemCategoryUpdate 
+    : ModelAUpdate
     , IUpdatable<ItemCategory>
 {
     public int? ParentId { get; set; }

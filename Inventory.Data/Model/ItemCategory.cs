@@ -1,10 +1,11 @@
-﻿using Core.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ModelHelper;
 
 namespace Inventory.Data;
 
-public class ItemCategory : IModelA
+public class ItemCategory 
+	: IModelA
 {
 	public int Id { get; set; }
 		

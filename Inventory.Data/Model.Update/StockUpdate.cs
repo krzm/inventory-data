@@ -1,9 +1,10 @@
 ﻿using System;
-using Core;
+using ModelHelper;
 
 namespace Inventory.Data;
 
-public class StockUpdate : IUpdatable<Stock>
+public class StockUpdate 
+    : IUpdatable<Stock>
 {
     public int? ItemId { get; set; }
 

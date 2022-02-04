@@ -1,9 +1,10 @@
-﻿using Core;
+﻿using ModelHelper;
 
 namespace Inventory.Data;
 
 #nullable enable
-public class ItemImageUpdate : IUpdatable<ItemImage>
+public class ItemImageUpdate 
+    : IUpdatable<ItemImage>
 {
     public int? ItemId { get; set; }
 

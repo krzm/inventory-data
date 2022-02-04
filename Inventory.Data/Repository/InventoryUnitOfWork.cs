@@ -1,9 +1,10 @@
-﻿using Core;
-using System;
+﻿using System;
+using EFCoreHelper;
 
 namespace Inventory.Data;
 
-public class InventoryUnitOfWork : IInventoryUnitOfWork
+public class InventoryUnitOfWork 
+	: IInventoryUnitOfWork
 {
 	private readonly InventoryContext context;
 	private readonly IGenericRepository<Item> item;
