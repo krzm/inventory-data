@@ -13,15 +13,15 @@ public class Category
 		
 	[Required]
 	[MaxLength(NameMaxLength)]
-	public string Name { get; set; }
+	public string? Name { get; set; }
 
 	[MaxLength(DescriptionMaxLength)]
-	public string Description { get; set; }
+	public string? Description { get; set; }
 
 	[ForeignKey(nameof(Category))]
 	public int? ParentId { get; set; }
 
-	public Category Parent { get; set; }
+	public Category? Parent { get; set; }
 
-	public IEnumerable<Category> Children { get; set; }
+	public IEnumerable<Category>? Children { get; set; }
 }

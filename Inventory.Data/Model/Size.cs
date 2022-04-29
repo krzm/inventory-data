@@ -21,5 +21,5 @@ public class Size
 	public double? Volume { get; set; }
 
 	[MaxLength(DescriptionMaxLength)]
-	public string Description { get; set; }
+	public string? Description { get; set; }
 }

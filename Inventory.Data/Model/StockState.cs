@@ -19,7 +19,7 @@ public class StockState
     [Column(TypeName = "datetime2")]
     public DateTime Created { get; set; }
 
-    public Stock Stock { get; set; }
+    public Stock? Stock { get; set; }
 
-    public State State { get; set; }
+    public State? State { get; set; }
 }

@@ -11,6 +11,7 @@ public class CategoryUpdate
     public void Update(Category model)
     {
         base.Update(model);
+        
         if (ParentId.HasValue
             && ParentId.Value != model.ParentId)
             model.ParentId = ParentId.Value;

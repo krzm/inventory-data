@@ -11,10 +11,10 @@ public class Item
 	
 	[Required]
 	[MaxLength(NameMaxLength)]
-	public string Name { get; set; }
+	public string? Name { get; set; }
 
     [MaxLength(DescriptionMaxLength)]
-	public string Description { get; set; }
+	public string? Description { get; set; }
 
     [ForeignKey(nameof(Data.Category))]
 	public int CategoryId { get; set; }
@@ -22,9 +22,9 @@ public class Item
 	[ForeignKey(nameof(Data.Size))]
 	public int? SizeId { get; set; }
 
-	public Category Category { get; set; }
+	public Category? Category { get; set; }
 
-	public Size Size { get; set; }
+	public Size? Size { get; set; }
 
-	public ICollection<Image> Images { get; set; }
+	public ICollection<Image>? Images { get; set; }
 }

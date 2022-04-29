@@ -10,10 +10,10 @@ public class Image
 
     [Required]
 	[MaxLength(PathMaxLength)]
-	public string Path { get; set; }
+	public string? Path { get; set; }
 
 	[ForeignKey(nameof(Item))]
 	public int ItemId { get; set; }
 
-	public Item Item { get; set; }
+	public Item? Item { get; set; }
 }

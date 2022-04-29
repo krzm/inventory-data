@@ -4,21 +4,21 @@ namespace Inventory.Data;
 
 public class InventoryContext : DbContext
 {
-	public DbSet<Category> Category { get; set; }
+	public DbSet<Category>? Category { get; set; }
 
-	public DbSet<Image> Image { get; set; }
+	public DbSet<Image>? Image { get; set; }
 
-	public DbSet<Item> Item { get; set; }
+	public DbSet<Item>? Item { get; set; }
 
-	public DbSet<Size> Size { get; set; }
+	public DbSet<Size>? Size { get; set; }
 
-	public DbSet<State> State { get; set; }
+	public DbSet<State>? State { get; set; }
 
-	public DbSet<Stock> Stock { get; set; }
+	public DbSet<Stock>? Stock { get; set; }
 
-	public DbSet<StockState> StockState { get; set; }
+	public DbSet<StockState>? StockState { get; set; }
 
-	public DbSet<Tag> Tag { get; set; }
+	public DbSet<Tag>? Tag { get; set; }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
