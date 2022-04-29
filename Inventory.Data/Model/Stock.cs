@@ -1,31 +1,31 @@
-using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inventory.Data;
 
 public class Stock
+    : Model
 {
 	public int Id { get; set; }
+    
+    [MaxLength(DescriptionMaxLength)]
+	public string Description { get; set; }
 
+	[ForeignKey(nameof(Item))]
 	public int ItemId { get; set; }
 
+    [ForeignKey(nameof(Item))]
 	public int ContainerId { get; set; }
 
-	[Column(TypeName = "datetime2")]
-	public DateTime Stored { get; set; }
+    [ForeignKey(nameof(Tag))]
+	public int TagId { get; set; }
 
-	[Column(TypeName = "datetime2")]
-	public DateTime? Open { get; set; }
+    public Item Item { get; set; }
 
-	[Column(TypeName = "datetime2")]
-	public DateTime? Used { get; set; }
-	
-	[ForeignKey("StockDetail")]
-	public int? StockDetailId { get; set; }
+    public Item Container { get; set; }
 
-	public Item Item { get; set; }
+    public Tag Tag { get; set; }
 
-	public Item Container { get; set; }
-
-	public StockDetail StockDetail { get; set; }
+    public ICollection<State> States { get; set; }
 }

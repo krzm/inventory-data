@@ -5,10 +5,11 @@ namespace Inventory.Data;
 public interface IInventoryUnitOfWork 
 	: IUnitOfWork
 {
+	IGenericRepository<Category> Category { get; }
+	IGenericRepository<Image> Image { get; }
 	IGenericRepository<Item> Item { get; }
-	IGenericRepository<ItemCategory> ItemCategory { get; }
-	IGenericRepository<ItemDetail> ItemDetail { get; }
-	IGenericRepository<ItemImage> ItemImage { get; }
+	IGenericRepository<Size> Size { get; }
+	IGenericRepository<State> State { get; }
 	IGenericRepository<Stock> Stock { get; }
-	IGenericRepository<StockDetail> StockDetail { get; }
+	IGenericRepository<Tag> Tag { get; }
 }

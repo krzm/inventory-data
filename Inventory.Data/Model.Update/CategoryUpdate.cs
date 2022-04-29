@@ -2,13 +2,13 @@
 
 namespace Inventory.Data;
 
-public class ItemCategoryUpdate 
+public class CategoryUpdate 
     : ModelAUpdate
-    , IUpdatable<ItemCategory>
+    , IUpdatable<Category>
 {
     public int? ParentId { get; set; }
 
-    public void Update(ItemCategory model)
+    public void Update(Category model)
     {
         base.Update(model);
         if (ParentId.HasValue

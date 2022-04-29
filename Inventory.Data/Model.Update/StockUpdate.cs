@@ -26,17 +26,5 @@ public class StockUpdate
         if (ContainerId.HasValue
             && ContainerId.Value != model.ContainerId)
             model.ContainerId = ContainerId.Value;
-        if (Stored.HasValue
-            && Stored.Value != model.Stored)
-            model.Stored = Stored.Value;
-        if (Open.HasValue
-            && Open.Value != model.Open)
-            model.Open = Open.Value;
-        if (Used.HasValue
-            && Used.Value != model.Used)
-            model.Used = Used.Value;
-        if (StockDetailId.HasValue
-            && StockDetailId.Value != model.StockDetailId)
-            model.StockDetailId = StockDetailId.Value;
     }
 }

@@ -16,14 +16,20 @@ public class AppDatabase
     {
         Container
             .RegisterSingleton<InventoryContext>()
-
-            .RegisterSingleton<IGenericRepository<Item>, EFGenericRepository<Item, InventoryContext>>()
-            .RegisterSingleton<IGenericRepository<ItemCategory>, EFGenericRepository<ItemCategory, InventoryContext>>()
-            .RegisterSingleton<IGenericRepository<ItemDetail>, EFGenericRepository<ItemDetail, InventoryContext>>()
-            .RegisterSingleton<IGenericRepository<ItemImage>, EFGenericRepository<ItemImage, InventoryContext>>()
-            .RegisterSingleton<IGenericRepository<Stock>, EFGenericRepository<Stock, InventoryContext>>()
-            .RegisterSingleton<IGenericRepository<StockDetail>, EFGenericRepository<StockDetail, InventoryContext>>()
-
             .RegisterSingleton<IInventoryUnitOfWork, InventoryUnitOfWork>();
+        RegRepo<Category>();
+        RegRepo<Image>();
+        RegRepo<Item>();
+        RegRepo<Size>();
+        RegRepo<State>();
+        RegRepo<Stock>();
+        RegRepo<Tag>();
+    }
+
+    private void RegRepo<TModel>()
+        where TModel : class
+    {
+         Container
+            .RegisterSingleton<IGenericRepository<TModel>, EFGenericRepository<TModel, InventoryContext>>();
     }
 }

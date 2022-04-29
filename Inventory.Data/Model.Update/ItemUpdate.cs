@@ -15,13 +15,13 @@ public class ItemUpdate
     public void Update(Item model)
     {
         if (ItemCategoryId.HasValue
-            && ItemCategoryId.Value != model.ItemCategoryId)
-            model.ItemCategoryId = ItemCategoryId.Value;
+            && ItemCategoryId.Value != model.CategoryId)
+            model.CategoryId = ItemCategoryId.Value;
         if (string.IsNullOrWhiteSpace(Name) == false
            && Name.Trim() != model.Name.Trim())
             model.Name = Name;
         if (ItemDetailId.HasValue
-            && ItemDetailId.Value != model.ItemDetailId)
-            model.ItemDetailId = ItemDetailId.Value;
+            && ItemDetailId.Value != model.SizeId)
+            model.SizeId = ItemDetailId.Value;
     }
 }
