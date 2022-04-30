@@ -2,7 +2,6 @@
 
 namespace Inventory.Data;
 
-#nullable enable
 public class ItemUpdate 
     : ModelAUpdate 
     , IUpdatable<Item>

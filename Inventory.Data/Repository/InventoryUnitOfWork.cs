@@ -1,5 +1,4 @@
-﻿using System;
-using EFCoreHelper;
+﻿using EFCoreHelper;
 
 namespace Inventory.Data;
 
