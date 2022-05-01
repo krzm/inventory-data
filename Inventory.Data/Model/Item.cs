@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ModelHelper;
 
 namespace Inventory.Data;
 
 public class Item
     : Model
+    , IModelA
 {
 	public int Id { get; set; }
 	

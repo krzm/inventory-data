@@ -12,6 +12,8 @@ public class ItemUpdate
 
     public void Update(Item model)
     {
+        base.Update(model);
+        
         if (CategoryId.HasValue
             && CategoryId.Value != model.CategoryId)
             model.CategoryId = CategoryId.Value;
