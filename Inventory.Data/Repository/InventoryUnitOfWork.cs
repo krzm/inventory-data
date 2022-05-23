@@ -5,7 +5,7 @@ namespace Inventory.Data;
 public class InventoryUnitOfWork 
 	: IInventoryUnitOfWork
 {
-	private readonly InventoryContext context;
+	private readonly InventoryDbContext context;
 	private readonly IGenericRepository<Category> category;
 	private readonly IGenericRepository<Image> image;
 	private readonly IGenericRepository<Item> item;
@@ -24,7 +24,7 @@ public class InventoryUnitOfWork
 	public IGenericRepository<Tag> Tag => tag;
 
     public InventoryUnitOfWork(
-		InventoryContext context
+		InventoryDbContext context
 		, IGenericRepository<Category> category
 		, IGenericRepository<Image> image
 		, IGenericRepository<Item> item

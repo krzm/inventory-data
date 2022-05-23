@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Inventory.Data;
 
-public class InventoryContext : DbContext
+public class InventoryDbContext
+    : DbContext
 {
 	public DbSet<Category>? Category { get; set; }
 
@@ -20,11 +22,17 @@ public class InventoryContext : DbContext
 
 	public DbSet<Tag>? Tag { get; set; }
 
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=InventoryData");
-	}
+    public static readonly Microsoft.Extensions.Logging.LoggerFactory myLoggerFactory = 
+        new LoggerFactory(new[] { 
+            new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider() 
+        });
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		optionsBuilder.UseSqlServer(ConnectionStringHelper.GetConnectionString())
+            .UseLoggerFactory(myLoggerFactory);
+	}
+    
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 		modelBuilder.Entity<Stock>()

@@ -1,44 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Unity" Version="5.11.10" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
-		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+    <PackageReference Include="Unity" Version="5.11.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+  </ItemGroup>
 
-  	<!--Debug refs-->
-	<!-- <ItemGroup>
-		<Reference Include="EFCoreHelper">
-			<HintPath>..\..\efcore-helper\EFCoreHelper\bin\Debug\net6.0\EFCoreHelper.dll</HintPath>
-		</Reference>
-    	<Reference Include="DIHelper">
-			<HintPath>..\..\di-helper\DIHelper\bin\Debug\net6.0\DIHelper.dll</HintPath>
-		</Reference>
-		<Reference Include="ModelHelper">
-			<HintPath>..\..\model-helper\ModelHelper\bin\Debug\net6.0\ModelHelper.dll</HintPath>
-		</Reference>
-	</ItemGroup> -->
+  <ItemGroup>
+    <Reference Include="EFCoreHelper">
+      <HintPath>..\..\..\Build\efcore-helper\EFCoreHelper\EFCoreHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="DIHelper">
+      <HintPath>..\..\..\Build\di-helper\DIHelper\DIHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="ModelHelper">
+      <HintPath>..\..\..\Build\model-helper\ModelHelper\ModelHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Config.Wrapper">
+      <HintPath>..\..\..\Build\config-wrapper\Config.Wrapper\Config.Wrapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
-	<!--Release refs-->
-	<ItemGroup>
-		<Reference Include="EFCoreHelper">
-			<HintPath>..\..\..\Build\efcore-helper\EFCoreHelper\EFCoreHelper.dll</HintPath>
-		</Reference>
-		<Reference Include="DIHelper">
-			<HintPath>..\..\..\Build\di-helper\DIHelper\DIHelper.dll</HintPath>
-		</Reference>
-		<Reference Include="ModelHelper">
-			<HintPath>..\..\..\Build\model-helper\ModelHelper\ModelHelper.dll</HintPath>
-		</Reference>
-	</ItemGroup>
 </Project>
