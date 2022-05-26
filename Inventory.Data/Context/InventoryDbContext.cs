@@ -29,8 +29,10 @@ public class InventoryDbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseSqlServer(ConnectionStringHelper.GetConnectionString())
-            .UseLoggerFactory(myLoggerFactory);
+        var helper = new DbConfigHelper();
+		optionsBuilder.UseSqlServer(helper.GetConnectionString());
+        if(helper.Config.UseLogger)
+            optionsBuilder.UseLoggerFactory(myLoggerFactory);
 	}
     
 	protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -25,4 +25,6 @@ public class DbConfig
     public string? LocalTestConnectionString { get; set; }
 
     public string? LocalConnectionString { get; set; }
+
+    public bool UseLogger { get; set; }
 }

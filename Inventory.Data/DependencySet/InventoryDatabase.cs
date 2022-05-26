@@ -1,4 +1,4 @@
-using EFCoreHelper;
+using EFCore.Helper;
 using Unity;
 using UnityDependencySet = DIHelper.Unity.UnityDependencySet;
 
@@ -42,8 +42,8 @@ public class InventoryDatabase
     {
          Container
             .RegisterSingleton<
-                IGenericRepository<TModel>
-                , EFGenericRepository<TModel, InventoryDbContext>>();
+                IRepository<TModel>
+                , EFRepository<TModel, InventoryDbContext>>();
     }
 
     private void RegisterUnitOfWork()
