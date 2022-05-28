@@ -12,14 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20220523214608_Init")]
+    [Migration("20220528222339_Init")]
     partial class Init
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "7.0.0-preview.4.22229.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -97,11 +98,16 @@ namespace Inventory.Data.Migrations
                     b.Property<int?>("SizeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("StockId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("SizeId");
+
+                    b.HasIndex("StockId");
 
                     b.ToTable("Item");
                 });
@@ -178,9 +184,6 @@ namespace Inventory.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ContainerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
@@ -188,18 +191,44 @@ namespace Inventory.Data.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagId")
+                    b.Property<int?>("TagId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ContainerId");
 
                     b.HasIndex("ItemId");
 
                     b.HasIndex("TagId");
 
                     b.ToTable("Stock");
+                });
+
+            modelBuilder.Entity("Inventory.Data.StockCount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("StockCount");
                 });
 
             modelBuilder.Entity("Inventory.Data.StockState", b =>
@@ -284,6 +313,10 @@ namespace Inventory.Data.Migrations
                         .WithMany()
                         .HasForeignKey("SizeId");
 
+                    b.HasOne("Inventory.Data.Stock", null)
+                        .WithMany("Containers")
+                        .HasForeignKey("StockId");
+
                     b.Navigation("Category");
 
                     b.Navigation("Size");
@@ -306,29 +339,30 @@ namespace Inventory.Data.Migrations
 
             modelBuilder.Entity("Inventory.Data.Stock", b =>
                 {
-                    b.HasOne("Inventory.Data.Item", "Container")
-                        .WithMany()
-                        .HasForeignKey("ContainerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Inventory.Data.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Inventory.Data.Tag", "Tag")
                         .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Container");
+                        .HasForeignKey("TagId");
 
                     b.Navigation("Item");
 
                     b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Inventory.Data.StockCount", b =>
+                {
+                    b.HasOne("Inventory.Data.Stock", "Stock")
+                        .WithMany("StockCounter")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Stock");
                 });
 
             modelBuilder.Entity("Inventory.Data.StockState", b =>
@@ -362,7 +396,11 @@ namespace Inventory.Data.Migrations
 
             modelBuilder.Entity("Inventory.Data.Stock", b =>
                 {
+                    b.Navigation("Containers");
+
                     b.Navigation("States");
+
+                    b.Navigation("StockCounter");
                 });
 #pragma warning restore 612, 618
         }

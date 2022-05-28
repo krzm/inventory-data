@@ -34,17 +34,4 @@ public class InventoryDbContext
         if(helper.Config.UseLogger)
             optionsBuilder.UseLoggerFactory(myLoggerFactory);
 	}
-    
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-		modelBuilder.Entity<Stock>()
-			.HasOne(r => r.Item)
-			.WithMany()
-			.OnDelete(DeleteBehavior.Restrict);
-
-		modelBuilder.Entity<Stock>()
-			.HasOne(r => r.Container)
-			.WithMany()
-			.OnDelete(DeleteBehavior.Restrict);
-    }
 }

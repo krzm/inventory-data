@@ -22,11 +22,7 @@ public class StockUpdate
         if (ItemId.HasValue
             && ItemId.Value != model.ItemId)
             model.ItemId = ItemId.Value;
-
-        if (ContainerId.HasValue
-            && ContainerId.Value != model.ContainerId)
-            model.ContainerId = ContainerId.Value;
-        
+            
         if (TagId.HasValue
             && TagId.Value != model.TagId)
             model.TagId = TagId.Value;
