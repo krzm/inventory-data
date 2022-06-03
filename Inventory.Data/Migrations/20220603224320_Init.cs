@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Inventory.Data.Migrations
 {
     /// <inheritdoc />
@@ -34,11 +36,27 @@ namespace Inventory.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SIUnit",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SIUnit", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Size",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    LengthUnit = table.Column<int>(type: "int", nullable: false),
+                    VolumeUnit = table.Column<int>(type: "int", nullable: false),
                     Length = table.Column<double>(type: "float", nullable: true),
                     Heigth = table.Column<double>(type: "float", nullable: true),
                     Depth = table.Column<double>(type: "float", nullable: true),
@@ -282,6 +300,15 @@ namespace Inventory.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "SIUnit",
+                columns: new[] { "Id", "Name", "Symbol" },
+                values: new object[,]
+                {
+                    { 1, "centimeter", "cm" },
+                    { 2, "liter", "l" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Category_ParentId",
                 table: "Category",
@@ -356,6 +383,9 @@ namespace Inventory.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Image");
+
+            migrationBuilder.DropTable(
+                name: "SIUnit");
 
             migrationBuilder.DropTable(
                 name: "StateStock");

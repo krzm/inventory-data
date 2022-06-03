@@ -186,6 +186,39 @@ namespace Inventory.Data.Migrations
                     b.ToTable("Item");
                 });
 
+            modelBuilder.Entity("Inventory.Data.SIUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Symbol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SIUnit");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "centimeter",
+                            Symbol = "cm"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "liter",
+                            Symbol = "l"
+                        });
+                });
+
             modelBuilder.Entity("Inventory.Data.Size", b =>
                 {
                     b.Property<int>("Id")
@@ -213,11 +246,17 @@ namespace Inventory.Data.Migrations
                     b.Property<double?>("Length")
                         .HasColumnType("float");
 
+                    b.Property<int>("LengthUnit")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<double?>("Volume")
                         .HasColumnType("float");
+
+                    b.Property<int>("VolumeUnit")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
