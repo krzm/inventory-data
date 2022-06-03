@@ -7,14 +7,11 @@ public class Size
 {
 	public int Id { get; set; }
 
-    [Required]
-	public double Length { get; set; }
+	public double? Length { get; set; }
 
-    [Required]
-	public double Heigth { get; set; }
+	public double? Heigth { get; set; }
 
-    [Required]
-	public double Depth { get; set; }
+	public double? Depth { get; set; }
 
     public double?  Diameter { get; set; }
 

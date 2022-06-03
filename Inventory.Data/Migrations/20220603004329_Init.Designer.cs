@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20220528222339_Init")]
+    [Migration("20220603004329_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -25,6 +25,27 @@ namespace Inventory.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ContainerStock", b =>
+                {
+                    b.Property<int>("ContainersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StocksId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ContainersId", "StocksId");
+
+                    b.HasIndex("StocksId");
+
+                    b.ToTable("ContainerStock");
+                });
+
             modelBuilder.Entity("Inventory.Data.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -32,6 +53,9 @@ namespace Inventory.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasMaxLength(160)
@@ -45,11 +69,52 @@ namespace Inventory.Data.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Inventory.Data.Container", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<int?>("SizeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("Container");
                 });
 
             modelBuilder.Entity("Inventory.Data.Image", b =>
@@ -60,6 +125,12 @@ namespace Inventory.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("ContainerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -68,7 +139,12 @@ namespace Inventory.Data.Migrations
                         .HasMaxLength(260)
                         .HasColumnType("nvarchar(260)");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ContainerId");
 
                     b.HasIndex("ItemId");
 
@@ -86,6 +162,9 @@ namespace Inventory.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
@@ -98,16 +177,14 @@ namespace Inventory.Data.Migrations
                     b.Property<int?>("SizeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StockId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("SizeId");
-
-                    b.HasIndex("StockId");
 
                     b.ToTable("Item");
                 });
@@ -120,7 +197,10 @@ namespace Inventory.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("Depth")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("Depth")
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
@@ -130,11 +210,14 @@ namespace Inventory.Data.Migrations
                     b.Property<double?>("Diameter")
                         .HasColumnType("float");
 
-                    b.Property<double>("Heigth")
+                    b.Property<double?>("Heigth")
                         .HasColumnType("float");
 
-                    b.Property<double>("Length")
+                    b.Property<double?>("Length")
                         .HasColumnType("float");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("Volume")
                         .HasColumnType("float");
@@ -155,6 +238,9 @@ namespace Inventory.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
@@ -164,14 +250,12 @@ namespace Inventory.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.Property<int?>("StockId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("StockId");
 
                     b.ToTable("State");
                 });
@@ -184,6 +268,9 @@ namespace Inventory.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
@@ -193,6 +280,9 @@ namespace Inventory.Data.Migrations
 
                     b.Property<int?>("TagId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -214,7 +304,7 @@ namespace Inventory.Data.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -224,37 +314,14 @@ namespace Inventory.Data.Migrations
                     b.Property<int>("StockId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StockId");
 
                     b.ToTable("StockCount");
-                });
-
-            modelBuilder.Entity("Inventory.Data.StockState", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StateId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StateId");
-
-                    b.HasIndex("StockId");
-
-                    b.ToTable("StockState");
                 });
 
             modelBuilder.Entity("Inventory.Data.Tag", b =>
@@ -268,6 +335,9 @@ namespace Inventory.Data.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
@@ -276,9 +346,48 @@ namespace Inventory.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Tag");
+                });
+
+            modelBuilder.Entity("StateStock", b =>
+                {
+                    b.Property<int>("StatesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StocksId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("StatesId", "StocksId");
+
+                    b.HasIndex("StocksId");
+
+                    b.ToTable("StateStock");
+                });
+
+            modelBuilder.Entity("ContainerStock", b =>
+                {
+                    b.HasOne("Inventory.Data.Container", null)
+                        .WithMany()
+                        .HasForeignKey("ContainersId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Inventory.Data.Stock", null)
+                        .WithMany()
+                        .HasForeignKey("StocksId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Inventory.Data.Category", b =>
@@ -290,12 +399,33 @@ namespace Inventory.Data.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("Inventory.Data.Container", b =>
+                {
+                    b.HasOne("Inventory.Data.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Inventory.Data.Size", "Size")
+                        .WithMany()
+                        .HasForeignKey("SizeId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Size");
+                });
+
             modelBuilder.Entity("Inventory.Data.Image", b =>
                 {
+                    b.HasOne("Inventory.Data.Container", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ContainerId");
+
                     b.HasOne("Inventory.Data.Item", "Item")
                         .WithMany("Images")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Item");
@@ -306,16 +436,12 @@ namespace Inventory.Data.Migrations
                     b.HasOne("Inventory.Data.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Inventory.Data.Size", "Size")
                         .WithMany()
                         .HasForeignKey("SizeId");
-
-                    b.HasOne("Inventory.Data.Stock", null)
-                        .WithMany("Containers")
-                        .HasForeignKey("StockId");
 
                     b.Navigation("Category");
 
@@ -327,12 +453,8 @@ namespace Inventory.Data.Migrations
                     b.HasOne("Inventory.Data.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Inventory.Data.Stock", null)
-                        .WithMany("States")
-                        .HasForeignKey("StockId");
 
                     b.Navigation("Category");
                 });
@@ -342,7 +464,7 @@ namespace Inventory.Data.Migrations
                     b.HasOne("Inventory.Data.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Inventory.Data.Tag", "Tag")
@@ -357,36 +479,37 @@ namespace Inventory.Data.Migrations
             modelBuilder.Entity("Inventory.Data.StockCount", b =>
                 {
                     b.HasOne("Inventory.Data.Stock", "Stock")
-                        .WithMany("StockCounter")
+                        .WithMany("StockCounts")
                         .HasForeignKey("StockId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Stock");
                 });
 
-            modelBuilder.Entity("Inventory.Data.StockState", b =>
+            modelBuilder.Entity("StateStock", b =>
                 {
-                    b.HasOne("Inventory.Data.State", "State")
+                    b.HasOne("Inventory.Data.State", null)
                         .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("StatesId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Inventory.Data.Stock", "Stock")
+                    b.HasOne("Inventory.Data.Stock", null)
                         .WithMany()
-                        .HasForeignKey("StockId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("StocksId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("State");
-
-                    b.Navigation("Stock");
                 });
 
             modelBuilder.Entity("Inventory.Data.Category", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("Inventory.Data.Container", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Inventory.Data.Item", b =>
@@ -396,11 +519,7 @@ namespace Inventory.Data.Migrations
 
             modelBuilder.Entity("Inventory.Data.Stock", b =>
                 {
-                    b.Navigation("Containers");
-
-                    b.Navigation("States");
-
-                    b.Navigation("StockCounter");
+                    b.Navigation("StockCounts");
                 });
 #pragma warning restore 612, 618
         }

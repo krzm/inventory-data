@@ -16,9 +16,5 @@ public class StockCount
     [MaxLength(DescriptionMaxLength)]
 	public string? Description { get; set; }
     
-    [Required]
-    [Column(TypeName = "datetime2")]
-    public DateTime Created { get; set; }
-
     public Stock? Stock { get; set; }
 }

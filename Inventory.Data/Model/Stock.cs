@@ -11,6 +11,7 @@ public class Stock
     [MaxLength(DescriptionMaxLength)]
 	public string? Description { get; set; }
 
+    [ForeignKey(nameof(Item))]
 	public int ItemId { get; set; }
 
     [ForeignKey(nameof(Tag))]
@@ -22,7 +23,7 @@ public class Stock
 
     public ICollection<State>? States { get; set; }
 
-    public ICollection<Item>? Containers { get; set; }
+    public ICollection<Container>? Containers { get; set; }
 
-    public ICollection<StockCount>? StockCounter { get; set; }
+    public ICollection<StockCount>? StockCounts { get; set; }
 }

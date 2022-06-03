@@ -4,23 +4,30 @@ using ModelHelper;
 
 namespace Inventory.Data;
 
-public class State
+public class Container
     : Model
     , IModelA
 {
 	public int Id { get; set; }
-
-    [Required]
-    [MaxLength(NameMaxLength)]
+	
+	[Required]
+	[MaxLength(NameMaxLength)]
 	public string? Name { get; set; }
 
     [MaxLength(DescriptionMaxLength)]
 	public string? Description { get; set; }
 
-	[ForeignKey(nameof(Category))]
+    [ForeignKey(nameof(Data.Category))]
 	public int CategoryId { get; set; }
+    
+	[ForeignKey(nameof(Data.Size))]
+	public int? SizeId { get; set; }
 
 	public Category? Category { get; set; }
 
-    public ICollection<Stock>? Stocks { get; set; }
+	public Size? Size { get; set; }
+
+	public ICollection<Image>? Images { get; set; }
+
+    public List<Stock>? Stocks { get; set; }
 }
