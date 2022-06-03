@@ -7,6 +7,9 @@ namespace Inventory.Data;
 public class InventoryDbContext
     : DbContext
 {
+    private const string CreateDateName = "CreatedDate";
+    private const string UpdateDateName = "UpdatedDate";
+
 	public DbSet<Category>? Category { get; set; }
 
 	public DbSet<Image>? Image { get; set; }
@@ -64,7 +67,7 @@ public class InventoryDbContext
         foreach (var entity in allEntities)
         {
             entity.AddProperty("CreatedDate", typeof(DateTime));
-            entity.AddProperty("UpdatedDate", typeof(DateTime));
+            entity.AddProperty(UpdateDateName, typeof(DateTime));
         }
     }
 
@@ -72,8 +75,20 @@ public class InventoryDbContext
     {
         modelBuilder.Entity<SIUnit>()
             .HasData(
-                new SIUnit { Id = 1, Symbol = "cm", Name = "centimeter" }
-                , new SIUnit { Id = 2, Symbol = "l", Name = "liter" });
+                GetSIUnit(1, "cm", "centimeter")
+                , GetSIUnit(2, "l", "liter"));
+    }
+
+    private object GetSIUnit(int id, string symbol, string name)
+    {
+        return new 
+        { 
+            Id = id
+            , Symbol = symbol
+            , Name = name
+            , CreatedDate = DateTime.Now
+            , UpdatedDate = DateTime.Now
+        };
     }
 
     public override int SaveChanges()
@@ -92,11 +107,11 @@ public class InventoryDbContext
 
         foreach (var entityEntry in entries)
         {
-            entityEntry.Property("UpdatedDate").CurrentValue = DateTime.Now;
+            entityEntry.Property(UpdateDateName).CurrentValue = DateTime.Now;
 
             if (entityEntry.State == EntityState.Added)
             {
-                entityEntry.Property("CreatedDate").CurrentValue = DateTime.Now;
+                entityEntry.Property(CreateDateName).CurrentValue = DateTime.Now;
             }
         }
     }

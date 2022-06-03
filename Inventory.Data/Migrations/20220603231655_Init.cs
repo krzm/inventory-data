@@ -42,33 +42,13 @@ namespace Inventory.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Symbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SIUnit", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Size",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LengthUnit = table.Column<int>(type: "int", nullable: false),
-                    VolumeUnit = table.Column<int>(type: "int", nullable: false),
-                    Length = table.Column<double>(type: "float", nullable: true),
-                    Heigth = table.Column<double>(type: "float", nullable: true),
-                    Depth = table.Column<double>(type: "float", nullable: true),
-                    Diameter = table.Column<double>(type: "float", nullable: true),
-                    Volume = table.Column<double>(type: "float", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Size", x => x.Id);
+                    table.PrimaryKey("PK_SIUnit", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +87,40 @@ namespace Inventory.Data.Migrations
                         name: "FK_State_Category_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Size",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LengthUnitId = table.Column<int>(type: "int", nullable: false),
+                    VolumeUnitId = table.Column<int>(type: "int", nullable: false),
+                    Length = table.Column<double>(type: "float", nullable: true),
+                    Heigth = table.Column<double>(type: "float", nullable: true),
+                    Depth = table.Column<double>(type: "float", nullable: true),
+                    Diameter = table.Column<double>(type: "float", nullable: true),
+                    Volume = table.Column<double>(type: "float", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Size", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Size_SIUnit_LengthUnitId",
+                        column: x => x.LengthUnitId,
+                        principalTable: "SIUnit",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Size_SIUnit_VolumeUnitId",
+                        column: x => x.VolumeUnitId,
+                        principalTable: "SIUnit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -302,11 +316,11 @@ namespace Inventory.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "SIUnit",
-                columns: new[] { "Id", "Name", "Symbol" },
+                columns: new[] { "Id", "CreatedDate", "Name", "Symbol", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, "centimeter", "cm" },
-                    { 2, "liter", "l" }
+                    { 1, new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1830), "centimeter", "cm", new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1863) },
+                    { 2, new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1867), "liter", "l", new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1869) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -350,6 +364,16 @@ namespace Inventory.Data.Migrations
                 column: "SizeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Size_LengthUnitId",
+                table: "Size",
+                column: "LengthUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Size_VolumeUnitId",
+                table: "Size",
+                column: "VolumeUnitId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_State_CategoryId",
                 table: "State",
                 column: "CategoryId");
@@ -385,9 +409,6 @@ namespace Inventory.Data.Migrations
                 name: "Image");
 
             migrationBuilder.DropTable(
-                name: "SIUnit");
-
-            migrationBuilder.DropTable(
                 name: "StateStock");
 
             migrationBuilder.DropTable(
@@ -413,6 +434,9 @@ namespace Inventory.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Size");
+
+            migrationBuilder.DropTable(
+                name: "SIUnit");
         }
     }
 }

@@ -194,11 +194,17 @@ namespace Inventory.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -208,14 +214,18 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1830),
                             Name = "centimeter",
-                            Symbol = "cm"
+                            Symbol = "cm",
+                            UpdatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1863)
                         },
                         new
                         {
                             Id = 2,
+                            CreatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1867),
                             Name = "liter",
-                            Symbol = "l"
+                            Symbol = "l",
+                            UpdatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1869)
                         });
                 });
 
@@ -246,7 +256,7 @@ namespace Inventory.Data.Migrations
                     b.Property<double?>("Length")
                         .HasColumnType("float");
 
-                    b.Property<int>("LengthUnit")
+                    b.Property<int>("LengthUnitId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -255,10 +265,14 @@ namespace Inventory.Data.Migrations
                     b.Property<double?>("Volume")
                         .HasColumnType("float");
 
-                    b.Property<int>("VolumeUnit")
+                    b.Property<int>("VolumeUnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LengthUnitId");
+
+                    b.HasIndex("VolumeUnitId");
 
                     b.ToTable("Size");
                 });
@@ -482,6 +496,25 @@ namespace Inventory.Data.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Size");
+                });
+
+            modelBuilder.Entity("Inventory.Data.Size", b =>
+                {
+                    b.HasOne("Inventory.Data.SIUnit", "LengthUnit")
+                        .WithMany()
+                        .HasForeignKey("LengthUnitId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Inventory.Data.SIUnit", "VolumeUnit")
+                        .WithMany()
+                        .HasForeignKey("VolumeUnitId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("LengthUnit");
+
+                    b.Navigation("VolumeUnit");
                 });
 
             modelBuilder.Entity("Inventory.Data.State", b =>

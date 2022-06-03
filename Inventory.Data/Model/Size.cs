@@ -9,10 +9,10 @@ public class Size
 	public int Id { get; set; }
 
     [ForeignKey(nameof(SIUnit))]
-	public int LengthUnit { get; set; }
+	public int LengthUnitId { get; set; }
     
     [ForeignKey(nameof(SIUnit))]
-	public int VolumeUnit { get; set; }
+	public int VolumeUnitId { get; set; }
 
 	public double? Length { get; set; }
 
@@ -26,4 +26,8 @@ public class Size
 
 	[MaxLength(DescriptionMaxLength)]
 	public string? Description { get; set; }
+
+    public SIUnit? LengthUnit { get; set; }
+
+    public SIUnit? VolumeUnit { get; set; }
 }
