@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.Data.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20220603231655_Init")]
+    [Migration("20220605200703_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -131,6 +131,10 @@ namespace Inventory.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
@@ -217,18 +221,18 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1830),
+                            CreatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9142),
                             Name = "centimeter",
                             Symbol = "cm",
-                            UpdatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1863)
+                            UpdatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9176)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1867),
+                            CreatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9182),
                             Name = "liter",
                             Symbol = "l",
-                            UpdatedDate = new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1869)
+                            UpdatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9184)
                         });
                 });
 

@@ -12,6 +12,9 @@ public class Image
 	[MaxLength(PathMaxLength)]
 	public string? Path { get; set; }
 
+    [MaxLength(DescriptionMaxLength)]
+	public string? Description { get; set; }
+
 	[ForeignKey(nameof(Item))]
 	public int ItemId { get; set; }
 

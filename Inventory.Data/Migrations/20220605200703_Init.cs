@@ -190,6 +190,7 @@ namespace Inventory.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Path = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
                     ItemId = table.Column<int>(type: "int", nullable: false),
                     ContainerId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -319,8 +320,8 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name", "Symbol", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1830), "centimeter", "cm", new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1863) },
-                    { 2, new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1867), "liter", "l", new DateTime(2022, 6, 4, 1, 16, 55, 659, DateTimeKind.Local).AddTicks(1869) }
+                    { 1, new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9142), "centimeter", "cm", new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9176) },
+                    { 2, new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9182), "liter", "l", new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9184) }
                 });
 
             migrationBuilder.CreateIndex(
