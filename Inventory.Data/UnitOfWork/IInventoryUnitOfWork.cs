@@ -11,5 +11,6 @@ public interface IInventoryUnitOfWork
 	IRepository<Size> Size { get; }
 	IRepository<State> State { get; }
 	IRepository<Stock> Stock { get; }
+	IRepository<StockCount> StockCount { get; }
 	IRepository<Tag> Tag { get; }
 }

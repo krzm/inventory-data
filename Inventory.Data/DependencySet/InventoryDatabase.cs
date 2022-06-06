@@ -34,6 +34,7 @@ public class InventoryDatabase
         RegisterRepo<Size>();
         RegisterRepo<State>();
         RegisterRepo<Stock>();
+        RegisterRepo<StockCount>();
         RegisterRepo<Tag>();
     }
 

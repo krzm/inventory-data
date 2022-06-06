@@ -13,6 +13,7 @@ public class InventoryUnitOfWork
 	private readonly IRepository<Size> size;
 	private readonly IRepository<State> state;
 	private readonly IRepository<Stock> stock;
+	private readonly IRepository<StockCount> stockcount;
 	private readonly IRepository<Tag> tag;
 
 	public IRepository<Category> Category => category;
@@ -20,6 +21,7 @@ public class InventoryUnitOfWork
 	public IRepository<Item> Item => item;
 	public IRepository<Size> Size => size;
 	public IRepository<State> State => state;
+	public IRepository<StockCount> StockCount => stockcount;
 	public IRepository<Stock> Stock => stock;
 	public IRepository<Tag> Tag => tag;
 
@@ -31,6 +33,7 @@ public class InventoryUnitOfWork
 		, IRepository<Size> size
 		, IRepository<State> state
 		, IRepository<Stock> stock
+        , IRepository<StockCount> stockcount
 		, IRepository<Tag> tag) : base(inventoryDbContext)
     {
 		this.inventoryDbContext = inventoryDbContext;
@@ -40,6 +43,7 @@ public class InventoryUnitOfWork
 		this.size = size;
 		this.state = state;
         this.stock = stock;
+        this.stockcount = stockcount;
 		this.tag = tag;
 
 		ArgumentNullException.ThrowIfNull(this.inventoryDbContext);
@@ -49,6 +53,7 @@ public class InventoryUnitOfWork
 		ArgumentNullException.ThrowIfNull(this.size);
 		ArgumentNullException.ThrowIfNull(this.state);
 		ArgumentNullException.ThrowIfNull(this.stock);
+		ArgumentNullException.ThrowIfNull(this.stockcount);
 		ArgumentNullException.ThrowIfNull(this.tag);
 	}
 }
