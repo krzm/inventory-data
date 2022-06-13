@@ -10,6 +10,7 @@ public class InventoryUnitOfWork
 	private readonly IRepository<Category> category;
 	private readonly IRepository<Image> image;
 	private readonly IRepository<Item> item;
+	private readonly IRepository<Container> container;
 	private readonly IRepository<Size> size;
 	private readonly IRepository<State> state;
 	private readonly IRepository<Stock> stock;
@@ -19,6 +20,7 @@ public class InventoryUnitOfWork
 	public IRepository<Category> Category => category;
 	public IRepository<Image> Image => image;
 	public IRepository<Item> Item => item;
+	public IRepository<Container> Container => container;
 	public IRepository<Size> Size => size;
 	public IRepository<State> State => state;
 	public IRepository<StockCount> StockCount => stockcount;
@@ -30,6 +32,7 @@ public class InventoryUnitOfWork
 		, IRepository<Category> category
 		, IRepository<Image> image
 		, IRepository<Item> item
+		, IRepository<Container> container
 		, IRepository<Size> size
 		, IRepository<State> state
 		, IRepository<Stock> stock
@@ -40,6 +43,7 @@ public class InventoryUnitOfWork
 		this.category = category;
         this.image = image;
 		this.item = item;
+        this.container = container;
 		this.size = size;
 		this.state = state;
         this.stock = stock;
@@ -50,6 +54,7 @@ public class InventoryUnitOfWork
 		ArgumentNullException.ThrowIfNull(this.category);
 		ArgumentNullException.ThrowIfNull(this.image);
 		ArgumentNullException.ThrowIfNull(this.item);
+		ArgumentNullException.ThrowIfNull(this.container);
 		ArgumentNullException.ThrowIfNull(this.size);
 		ArgumentNullException.ThrowIfNull(this.state);
 		ArgumentNullException.ThrowIfNull(this.stock);

@@ -8,6 +8,7 @@ public interface IInventoryUnitOfWork
 	IRepository<Category> Category { get; }
 	IRepository<Image> Image { get; }
 	IRepository<Item> Item { get; }
+	IRepository<Container> Container { get; }
 	IRepository<Size> Size { get; }
 	IRepository<State> State { get; }
 	IRepository<Stock> Stock { get; }

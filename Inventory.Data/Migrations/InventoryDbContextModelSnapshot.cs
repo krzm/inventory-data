@@ -99,6 +99,9 @@ namespace Inventory.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SizeId")
                         .HasColumnType("int");
 
@@ -108,6 +111,8 @@ namespace Inventory.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("SizeId");
 
@@ -218,18 +223,18 @@ namespace Inventory.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9142),
+                            CreatedDate = new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4568),
                             Name = "centimeter",
                             Symbol = "cm",
-                            UpdatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9176)
+                            UpdatedDate = new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4603)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9182),
+                            CreatedDate = new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4607),
                             Name = "liter",
                             Symbol = "l",
-                            UpdatedDate = new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9184)
+                            UpdatedDate = new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4609)
                         });
                 });
 
@@ -461,11 +466,17 @@ namespace Inventory.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Inventory.Data.Container", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
                     b.HasOne("Inventory.Data.Size", "Size")
                         .WithMany()
                         .HasForeignKey("SizeId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Parent");
 
                     b.Navigation("Size");
                 });

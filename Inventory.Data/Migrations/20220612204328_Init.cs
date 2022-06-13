@@ -134,6 +134,7 @@ namespace Inventory.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
                     SizeId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -147,6 +148,11 @@ namespace Inventory.Data.Migrations
                         principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Container_Container_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Container",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Container_Size_SizeId",
                         column: x => x.SizeId,
@@ -218,9 +224,9 @@ namespace Inventory.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
                     ItemId = table.Column<int>(type: "int", nullable: false),
                     TagId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -320,8 +326,8 @@ namespace Inventory.Data.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name", "Symbol", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9142), "centimeter", "cm", new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9176) },
-                    { 2, new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9182), "liter", "l", new DateTime(2022, 6, 5, 22, 7, 2, 825, DateTimeKind.Local).AddTicks(9184) }
+                    { 1, new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4568), "centimeter", "cm", new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4603) },
+                    { 2, new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4607), "liter", "l", new DateTime(2022, 6, 12, 22, 43, 27, 808, DateTimeKind.Local).AddTicks(4609) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -333,6 +339,11 @@ namespace Inventory.Data.Migrations
                 name: "IX_Container_CategoryId",
                 table: "Container",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Container_ParentId",
+                table: "Container",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Container_SizeId",

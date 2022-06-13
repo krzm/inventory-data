@@ -20,11 +20,16 @@ public class Container
     [ForeignKey(nameof(Data.Category))]
 	public int CategoryId { get; set; }
     
+	[ForeignKey(nameof(Container))]
+	public int? ParentId { get; set; }
+	
 	[ForeignKey(nameof(Data.Size))]
 	public int? SizeId { get; set; }
 
 	public Category? Category { get; set; }
-
+	
+	public Container? Parent { get; set; }
+	
 	public Size? Size { get; set; }
 
 	public ICollection<Image>? Images { get; set; }

@@ -6,6 +6,13 @@ namespace Inventory.Data;
 public class Stock
     : Model
 {
+    public Stock()
+    {
+        States = new List<State>();
+        Containers = new List<Container>();
+        StockCounts = new List<StockCount>();
+    }
+
 	public int Id { get; set; }
     
 	[ForeignKey(nameof(Item))]

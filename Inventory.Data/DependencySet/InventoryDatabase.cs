@@ -31,6 +31,7 @@ public class InventoryDatabase
         RegisterRepo<Category>();
         RegisterRepo<Image>();
         RegisterRepo<Item>();
+        RegisterRepo<Container>();
         RegisterRepo<Size>();
         RegisterRepo<State>();
         RegisterRepo<Stock>();
